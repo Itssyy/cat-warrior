@@ -8,9 +8,9 @@ extends CharacterBody2D
 @export var patrol_threshold = 5.0
 @export var attack_range = 50.0
 @export var stop_distance_from_player = 20.0  # Минимальное расстояние до игрока, на котором враг остановится
-@export var chase_speed = 34
+@export var chase_speed = 32
 @export var player: Node2D = null
-@export var attack_cooldown = 1.0
+@export var attack_cooldown = 6.0
 @export var attack_offset := Vector2(16, 0)
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
