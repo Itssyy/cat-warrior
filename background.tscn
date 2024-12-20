@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://c31ujwh2exfn3"]
+
+[ext_resource type="Texture2D" uid="uid://7ooltg4rh3wr" path="res://PixelArtPackSideScroller04/Props/SkyEffect01.png" id="1_w60dy"]
+[ext_resource type="Texture2D" uid="uid://d16e1kyrmeq70" path="res://PixelArtPackSideScroller04/Props/Stars01.png" id="2_q4307"]
+[ext_resource type="Texture2D" uid="uid://de8k5g0d1ht7u" path="res://PixelArtPackSideScroller04/Props/Planet/Planet01.png" id="3_mqsoj"]
+[ext_resource type="Texture2D" uid="uid://8hmctsbg5krr" path="res://PixelArtPackSideScroller04/Props/Planet/Planet02.png" id="4_ieito"]
+[ext_resource type="Texture2D" uid="uid://c87wng4jx6t41" path="res://PixelArtPackSideScroller04/Props/Planet/Planet03.png" id="5_ndq6k"]
+
+[node name="Background" type="ParallaxBackground"]
+process_priority = -4
+process_physics_priority = -4
+layer = 90
+scroll_base_scale = Vector2(0.8, 0.8)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+z_index = -4
+z_as_relative = false
+position = Vector2(300, -99)
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(1152, 0)
+
+[node name="SkyEffect01" type="Sprite2D" parent="ParallaxLayer"]
+z_index = -3
+z_as_relative = false
+position = Vector2(-111, 38)
+scale = Vector2(1.46527, 1.41798)
+texture = ExtResource("1_w60dy")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+position = Vector2(423, 96)
+
+[node name="Stars01" type="Sprite2D" parent="ParallaxLayer2"]
+z_index = -2
+position = Vector2(-221.5, -138.25)
+scale = Vector2(1.46875, 1.36482)
+texture = ExtResource("2_q4307")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="."]
+position = Vector2(-300, 45)
+
+[node name="Planet01" type="Sprite2D" parent="ParallaxLayer3"]
+position = Vector2(222, -210)
+scale = Vector2(0.785326, 0.730663)
+texture = ExtResource("3_mqsoj")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="."]
+position = Vector2(36, -113)
+
+[node name="Planet02" type="Sprite2D" parent="ParallaxLayer4"]
+position = Vector2(474, 41)
+scale = Vector2(0.946808, 1.0875)
+texture = ExtResource("4_ieito")
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="."]
+position = Vector2(207, -198)
+
+[node name="Planet03" type="Sprite2D" parent="ParallaxLayer5"]
+position = Vector2(3.99999, 77)
+scale = Vector2(0.669199, 0.785715)
+texture = ExtResource("5_ndq6k")
