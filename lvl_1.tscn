@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://cf1etq28qc874"]
+[gd_scene load_steps=26 format=4 uid="uid://cf1etq28qc874"]
 
 [ext_resource type="Texture2D" uid="uid://dreplmdpki4ww" path="res://PixelArtPackSideScroller04/Props/Platforms/Platform02.png" id="1_l7f31"]
 [ext_resource type="Texture2D" uid="uid://cp5jqk6kw5id8" path="res://PixelArtPackSideScroller04/Props/Platforms/Platform03.png" id="2_pgn0n"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://d1vt13fheosck" path="res://PixelArtPackSideScroller04/Props/Fire/Fire_06.png" id="13_luyam"]
 [ext_resource type="Texture2D" uid="uid://3bvs53s5r2bp" path="res://PixelArtPackSideScroller04/Props/Fire/Fire_07.png" id="14_3ibor"]
 [ext_resource type="Texture2D" uid="uid://ccis6fyupm4nt" path="res://PixelArtPackSideScroller04/Props/Fire/Fire_08.png" id="15_awrwq"]
+[ext_resource type="PackedScene" uid="uid://0cs8j1sjlmhy" path="res://ability_item.tscn" id="18_acsqw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2ptt0"]
 texture = ExtResource("1_l7f31")
@@ -174,7 +175,6 @@ attack_offset = Vector2(28, 0)
 [node name="AnimatedSprite2D2" parent="Player" index="3"]
 position = Vector2(0, -6)
 animation = &"idle"
-frame = 0
 
 [node name="CollisionShape2D" parent="Player/AttackArea" index="0"]
 position = Vector2(2, -1)
@@ -236,6 +236,9 @@ position = Vector2(-65.4922, 2.08259)
 
 [node name="point2" parent="enemy1/Node2D" index="1"]
 position = Vector2(53.1531, 2.08259)
+
+[node name="Area2D" parent="." instance=ExtResource("18_acsqw")]
+position = Vector2(558, -57)
 
 [editable path="TileMapLayer/Background"]
 [editable path="Player"]

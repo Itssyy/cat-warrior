@@ -29,6 +29,7 @@ var current_state: State = State.IDLE
 var is_facing_right := true
 var jump_count := 0
 var is_invulnerable := false
+var has_shoot_ability := false
 
 func _ready() -> void:
 	attack_area.add_to_group("player_attack")
@@ -84,7 +85,7 @@ func _handle_input() -> void:
 		change_state(State.JUMP)
 	elif Input.is_action_just_pressed("attack"):
 		change_state(State.ATTACK)
-	elif Input.is_action_just_pressed("secondary_attack"):  
+	elif Input.is_action_just_pressed("secondary_attack") and has_shoot_ability:
 		change_state(State.SHOOT)
 
 func handle_idle_state() -> void:
@@ -242,3 +243,11 @@ func _on_invulnerability_timer_timeout():
 
 func _on_blink_timer_timeout():
 	animated_sprite.visible = not animated_sprite.visible
+
+func unlock_shoot_ability() -> void:
+	has_shoot_ability = true
+	print("Shoot ability unlocked! Player position: ", global_position)
+	# Добавляем визуальный эффект
+	animated_sprite.modulate = Color(1, 1, 0)  # Желтая вспышка
+	await get_tree().create_timer(0.2).timeout
+	animated_sprite.modulate = Color(1, 1, 1)  # Возвращаем нормальный цвет

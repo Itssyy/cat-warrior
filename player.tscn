@@ -517,7 +517,6 @@ limit_bottom = 24
 position = Vector2(-1, -6)
 sprite_frames = SubResource("SpriteFrames_yphsy")
 animation = &"shoot"
-frame_progress = 0.105429
 
 [node name="AttackArea" type="Area2D" parent="."]
 collision_layer = 8
