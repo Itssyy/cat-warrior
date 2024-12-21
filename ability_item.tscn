@@ -59,3 +59,12 @@ shape = SubResource("CircleShape2D_o734m")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6l08o")
 frame_progress = 0.728446
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+offset_left = -4.0
+offset_top = -22.0
+offset_right = 8.0
+offset_bottom = 0.999998
+scale = Vector2(0.6, 0.6)
+text = "E"

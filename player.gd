@@ -4,7 +4,7 @@ enum State {IDLE, RUN, JUMP, FALL, ATTACK, SHOOT}
 
 @export var speed := 170.0
 @export var jump_velocity := -264
-@export var attack_duration := 1.3
+@export var attack_duration := 1.2
 @export var shoot_duration := 0.8
 @export var damage := 10
 @export var attack_offset := Vector2(32, 0)
@@ -13,6 +13,8 @@ enum State {IDLE, RUN, JUMP, FALL, ATTACK, SHOOT}
 @export var invulnerability_duration := 1.0
 @export var blink_interval := 0.1
 @export var death_fall_threshold := 600
+@export var camera_shake_strength := 2.0  # Сила тряски
+@export var camera_shake_duration := 0.2  # Длительность тряски
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D2
 @onready var attack_timer: Timer = $Timer
@@ -39,6 +41,10 @@ func _ready() -> void:
 	attack_collision_shape.disabled = true
 	damage_area.area_entered.connect(_on_damage_area_entered)
 	attack_area.body_entered.connect(_on_attack_area_body_entered)
+	
+	# Подключаем сигналы анимации
+	animated_sprite.animation_finished.connect(_on_animation_finished)
+	animated_sprite.frame_changed.connect(_on_frame_changed)
 
 	invulnerability_timer.one_shot = true
 	invulnerability_timer.connect("timeout", Callable(self, "_on_invulnerability_timer_timeout"))
@@ -133,7 +139,6 @@ func handle_attack_state() -> void:
 	
 	attack_timer.wait_time = attack_duration
 	attack_timer.start()
-	attack_collision_shape.disabled = false
 	update_animation("attack")
 
 func handle_shoot_state() -> void:
@@ -143,8 +148,8 @@ func handle_shoot_state() -> void:
 	
 	attack_timer.wait_time = shoot_duration
 	attack_timer.start()
-	attack_collision_shape.disabled = false
 	update_animation("shoot")
+	shake_camera()  # Добавляем тряску при выстреле
 
 func change_state(new_state: State) -> void:
 	if current_state == new_state:
@@ -193,7 +198,6 @@ func update_animation(anim_name := "") -> void:
 	animated_sprite.flip_h = not is_facing_right
 
 func _on_attack_timer_timeout() -> void:
-	attack_collision_shape.disabled = true
 	if current_state == State.ATTACK or current_state == State.SHOOT:
 		change_state(State.IDLE)
 
@@ -251,3 +255,34 @@ func unlock_shoot_ability() -> void:
 	animated_sprite.modulate = Color(1, 1, 0)  # Желтая вспышка
 	await get_tree().create_timer(0.2).timeout
 	animated_sprite.modulate = Color(1, 1, 1)  # Возвращаем нормальный цвет
+
+func _on_frame_changed():
+	if current_state == State.ATTACK:
+		var frame = animated_sprite.frame
+		attack_collision_shape.disabled = not (frame in [2, 3])
+	elif current_state == State.SHOOT:
+		var frame = animated_sprite.frame
+		attack_collision_shape.disabled = not (frame in [1, 2])
+
+func _on_animation_finished():
+	if current_state == State.ATTACK or current_state == State.SHOOT:
+		attack_collision_shape.disabled = true
+
+func shake_camera() -> void:
+	var camera = get_node_or_null("Camera2D")
+	if not camera:
+		return
+		
+	var tween = create_tween()
+	var start_pos = camera.offset
+	
+	# Создаем несколько случайных позиций для тряски
+	for i in range(10):
+		var rand_offset = Vector2(
+			randf_range(-camera_shake_strength, camera_shake_strength),
+			randf_range(-camera_shake_strength, camera_shake_strength)
+		)
+		tween.tween_property(camera, "offset", rand_offset, camera_shake_duration / 10.0)
+	
+	# Возвращаем камеру в исходное положение
+	tween.tween_property(camera, "offset", Vector2.ZERO, camera_shake_duration / 10.0)
