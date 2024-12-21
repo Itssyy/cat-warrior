@@ -11,7 +11,7 @@ enum State {IDLE, RUN, JUMP, FALL, ATTACK}
 @export var max_jumps := 2
 @export var invulnerability_duration := 1.0
 @export var blink_interval := 0.1
-@export var death_fall_threshold := -600
+@export var death_fall_threshold := 600
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D2
 @onready var attack_timer: Timer = $Timer
@@ -51,9 +51,9 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	apply_gravity(delta)
-	move_and_slide() # Перемещено сюда для обновления позиции перед проверкой падения
+	move_and_slide()
 
-	if global_position.y < death_fall_threshold:
+	if global_position.y > death_fall_threshold:
 		take_damage(health)
 		return
 
