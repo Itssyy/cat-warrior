@@ -373,6 +373,17 @@ position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_ofjs4")
 debug_color = Color(0.228633, 0.620227, 0.432793, 0.42)
 
+[node name="HealthBar" type="ProgressBar" parent="enemy1"]
+modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2(60, 7)
+offset_left = -4.0
+offset_top = -12.0
+offset_right = 56.0
+offset_bottom = 3.0
+scale = Vector2(0.1, 0.1)
+value = 100.0
+show_percentage = false
+
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(-1, -3)
 

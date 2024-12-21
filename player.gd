@@ -21,6 +21,7 @@ enum State {IDLE, RUN, JUMP, FALL, ATTACK}
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var invulnerability_timer: Timer = Timer.new()
 @onready var blink_timer: Timer = Timer.new()
+@onready var health_bar: ProgressBar = $UI/HealthBar
 
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var current_state: State = State.IDLE
@@ -44,6 +45,9 @@ func _ready() -> void:
 	blink_timer.wait_time = blink_interval
 	blink_timer.connect("timeout", Callable(self, "_on_blink_timer_timeout"))
 	add_child(blink_timer)
+	
+	health_bar.max_value = health
+	health_bar.value = health
 
 func _physics_process(delta: float) -> void:
 	apply_gravity(delta)
@@ -173,6 +177,7 @@ func take_damage(amount):
 		return
 
 	health -= amount
+	health_bar.value = health
 	print("Player. Health: ", health)
 
 	if health <= 0:

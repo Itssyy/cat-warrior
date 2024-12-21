@@ -28,13 +28,16 @@ var facing_right = true
 @onready var damage_area = $DamageArea
 @onready var attack_area = $AttackArea
 @onready var attack_area_shape = $AttackArea/CollisionShape2D
+@onready var health_bar = $HealthBar
 
 func _ready():
 	detection_area.body_entered.connect(_on_detection_area_body_entered)
 	detection_area.body_exited.connect(_on_detection_area_body_exited)
 	damage_area.area_entered.connect(_on_damage_area_entered)
 	attack_area_shape.disabled = true
-	attack_area.add_to_group("enemy_attack")  # Добавляем область атаки в группу врагов
+	attack_area.add_to_group("enemy_attack")
+	health_bar.max_value = health
+	health_bar.value = health
 
 func _physics_process(delta):
 	match state:
@@ -132,6 +135,7 @@ func _update_facing_direction(dir_x):
 
 func take_damage(amount):
 	health -= amount
+	health_bar.value = health
 	print("Enemy took damage. Health: ", health)
 	if health <= 0:
 		_die()

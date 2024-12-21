@@ -458,3 +458,34 @@ debug_color = Color(0.321477, 0.604428, 0.453439, 0.42)
 libraries = {
 "": SubResource("AnimationLibrary_xsymy")
 }
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="UI"]
+modulate = Color(1, 0.0862745, 0.0117647, 1)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1156.0
+offset_top = 4.0
+offset_right = -1079.0
+offset_bottom = 29.0
+grow_horizontal = 0
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="UI/HealthBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "HP"
+horizontal_alignment = 1

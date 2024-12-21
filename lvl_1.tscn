@@ -183,6 +183,12 @@ position = Vector2(2, -1)
 collision_layer = 32
 collision_mask = 64
 
+[node name="HealthBar" parent="Player/UI" index="0"]
+offset_left = -1149.0
+offset_top = 2.0
+offset_right = -1037.0
+offset_bottom = 21.0
+
 [node name="enemy1" parent="." instance=ExtResource("8_rb3xk")]
 position = Vector2(232, -20)
 scale = Vector2(1.05356, 0.960343)
@@ -201,7 +207,6 @@ position = Vector2(0.94915, 3.12389)
 
 [node name="AnimatedSprite2D" parent="enemy1/enemy1" index="1"]
 position = Vector2(-1.89834, -4.16518)
-frame_progress = 0.0
 
 [node name="DetectionArea" parent="enemy1/enemy1" index="3"]
 collision_mask = 2
