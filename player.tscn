@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://ukkkkw1y54u5"]
+[gd_scene load_steps=76 format=3 uid="uid://ukkkkw1y54u5"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_1t0xa"]
 [ext_resource type="Texture2D" uid="uid://bkykqnxtv8bxr" path="res://CharacterPack/Player/Attack01/player_attack01_01.png" id="3_opjjb"]
@@ -50,7 +50,19 @@
 [ext_resource type="Texture2D" uid="uid://dg7g4wrpcbwf4" path="res://CharacterPack/Player/Run/player_run_07.png" id="49_qaeyq"]
 [ext_resource type="Texture2D" uid="uid://dssfm2geslf2n" path="res://CharacterPack/Player/Run/player_run_08.png" id="50_f40ew"]
 [ext_resource type="Texture2D" uid="uid://xctyscih54go" path="res://CharacterPack/Player/Run/player_run_09.png" id="51_oqwfs"]
+[ext_resource type="Texture2D" uid="uid://b8orjmkwlsfb3" path="res://CharacterPack/Player/Shoot/player_shoot_01.png" id="52_64ykq"]
 [ext_resource type="Texture2D" uid="uid://cxevnpeylr61w" path="res://CharacterPack/Player/Run/player_run_10.png" id="52_utckw"]
+[ext_resource type="Texture2D" uid="uid://bmj18dj51wo07" path="res://CharacterPack/Player/Shoot/player_shoot_02.png" id="53_wtmif"]
+[ext_resource type="Texture2D" uid="uid://bj2drij36hpwj" path="res://CharacterPack/Player/Shoot/player_shoot_03.png" id="54_6llvk"]
+[ext_resource type="Texture2D" uid="uid://ub4l4xyip7o" path="res://CharacterPack/Player/Shoot/player_shoot_04.png" id="55_74x61"]
+[ext_resource type="Texture2D" uid="uid://dhxjcewbo27qh" path="res://CharacterPack/Player/Shoot/player_shoot_05.png" id="56_l7db0"]
+[ext_resource type="Texture2D" uid="uid://cualm8vvuq01" path="res://CharacterPack/Player/Shoot/player_shoot_06.png" id="57_3j8ly"]
+[ext_resource type="Texture2D" uid="uid://dl54fgbtfhje" path="res://CharacterPack/Player/Shoot/player_shoot_07.png" id="58_m6wp4"]
+[ext_resource type="Texture2D" uid="uid://bo8dcgm85waud" path="res://CharacterPack/Player/Shoot/player_shoot_08.png" id="59_bjti3"]
+[ext_resource type="Texture2D" uid="uid://c66imkdsekmdj" path="res://CharacterPack/Player/Shoot/player_shoot_09.png" id="60_kxfsp"]
+[ext_resource type="Texture2D" uid="uid://7njaoa5pmaaj" path="res://CharacterPack/Player/Shoot/player_shoot_10.png" id="61_6w3mf"]
+[ext_resource type="Texture2D" uid="uid://bmtha154ks80v" path="res://CharacterPack/Player/Shoot/player_shoot_11.png" id="62_7g2rx"]
+[ext_resource type="Texture2D" uid="uid://1qiap3vuckkv" path="res://CharacterPack/Player/Shoot/player_shoot_12.png" id="63_ll4vu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6uo6r"]
 size = Vector2(18, 23)
@@ -231,6 +243,47 @@ animations = [{
 "loop": true,
 "name": &"run",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("52_64ykq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_wtmif")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_6llvk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_74x61")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_l7db0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_3j8ly")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_m6wp4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_bjti3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_kxfsp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_6w3mf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_7g2rx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_ll4vu")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_050ds"]
@@ -264,7 +317,7 @@ tracks/0/path = NodePath("AnimatedSprite2D2:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.26667),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
@@ -406,6 +459,34 @@ tracks/1/keys = {
 "values": ["run"]
 }
 
+[sub_resource type="Animation" id="Animation_2464t"]
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D2:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["shoot"]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xsymy"]
 _data = {
 "RESET": SubResource("Animation_wt0uo"),
@@ -413,7 +494,8 @@ _data = {
 "idle": SubResource("Animation_1yax7"),
 "jump_d": SubResource("Animation_qp17t"),
 "jump_up": SubResource("Animation_wj1aa"),
-"run": SubResource("Animation_t02js")
+"run": SubResource("Animation_t02js"),
+"shoot": SubResource("Animation_2464t")
 }
 
 [node name="Player" type="CharacterBody2D"]
@@ -434,8 +516,8 @@ limit_bottom = 24
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -6)
 sprite_frames = SubResource("SpriteFrames_yphsy")
-animation = &"attack"
-frame = 10
+animation = &"shoot"
+frame_progress = 0.105429
 
 [node name="AttackArea" type="Area2D" parent="."]
 collision_layer = 8

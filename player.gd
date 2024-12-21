@@ -1,10 +1,11 @@
 extends CharacterBody2D
 
-enum State {IDLE, RUN, JUMP, FALL, ATTACK}
+enum State {IDLE, RUN, JUMP, FALL, ATTACK, SHOOT}
 
 @export var speed := 170.0
 @export var jump_velocity := -264
 @export var attack_duration := 1.3
+@export var shoot_duration := 0.8
 @export var damage := 10
 @export var attack_offset := Vector2(32, 0)
 @export var health = 100
@@ -68,6 +69,8 @@ func _physics_process(delta: float) -> void:
 			handle_fall_state()
 		State.ATTACK:
 			handle_attack_state()
+		State.SHOOT:
+			handle_shoot_state()
 
 	update_animation()
 	adjust_attack_area_position()
@@ -81,6 +84,8 @@ func _handle_input() -> void:
 		change_state(State.JUMP)
 	elif Input.is_action_just_pressed("attack"):
 		change_state(State.ATTACK)
+	elif Input.is_action_just_pressed("secondary_attack"):  
+		change_state(State.SHOOT)
 
 func handle_idle_state() -> void:
 	velocity.x = 0
@@ -124,13 +129,21 @@ func handle_attack_state() -> void:
 	velocity.x = 0
 	if not attack_timer.is_stopped():
 		return
-
-	attack_timer.start(attack_duration)
+	
+	attack_timer.wait_time = attack_duration
+	attack_timer.start()
 	attack_collision_shape.disabled = false
+	update_animation("attack")
 
-func _on_attack_timer_timeout() -> void:
-	attack_collision_shape.disabled = true
-	change_state(State.IDLE)
+func handle_shoot_state() -> void:
+	velocity.x = 0
+	if not attack_timer.is_stopped():
+		return
+	
+	attack_timer.wait_time = shoot_duration
+	attack_timer.start()
+	attack_collision_shape.disabled = false
+	update_animation("shoot")
 
 func change_state(new_state: State) -> void:
 	if current_state == new_state:
@@ -147,21 +160,41 @@ func change_state(new_state: State) -> void:
 				jump_count += 1
 		State.ATTACK:
 			pass
+		State.SHOOT:
+			pass
 
-func update_animation() -> void:
-	match current_state:
-		State.IDLE:
-			animation_player.play("idle")
-		State.RUN:
-			animation_player.play("run")
-		State.JUMP:
-			animation_player.play("jump_up")
-		State.FALL:
-			animation_player.play("jump_d")
-		State.ATTACK:
-			animation_player.play("attack")
-
+func update_animation(anim_name := "") -> void:
+	var animation := anim_name
+	
+	if animation == "":
+		match current_state:
+			State.IDLE:
+				animation = "idle"
+			State.RUN:
+				animation = "run"
+			State.JUMP:
+				animation = "jump_up"
+			State.FALL:
+				animation = "jump_d"
+			State.ATTACK:
+				if not attack_timer.is_stopped():
+					animation = "attack"
+				else:
+					animation = "idle"
+			State.SHOOT:
+				if not attack_timer.is_stopped():
+					animation = "shoot"
+				else:
+					animation = "idle"
+	
+	if animation != animated_sprite.animation:
+		animated_sprite.play(animation)
 	animated_sprite.flip_h = not is_facing_right
+
+func _on_attack_timer_timeout() -> void:
+	attack_collision_shape.disabled = true
+	if current_state == State.ATTACK or current_state == State.SHOOT:
+		change_state(State.IDLE)
 
 func adjust_attack_area_position() -> void:
 	attack_area.position = attack_offset if is_facing_right else -attack_offset
